@@ -1,0 +1,175 @@
+<!-- service.liquid -->
+<div class="{% if section.settings.fullwidth %}container-fluid{% else %}container{% endif %}">
+  <div class="section-block">
+    {%- include 'section-heading' -%}
+    <div class="services-wrapper dots-negative">
+      <div class="services-slider row" id="service-list-{{ section.id }}"
+           data-rows="{{section.settings.rows}}"
+           data-slidesToShow="{{section.blocks.size}}"
+           data-slidestoscroll="{{section.blocks.size}}"
+           data-arrows="{{ section.settings.arrows }}"
+           data-dots="{{ section.settings.dots }}" 
+           data-draggable="{{ section.settings.draggable }}" 
+           data-infinite="{{ section.settings.infinite }}" 
+           data-section-id="{{ section.id }}" 
+           data-section-type="slickCarousels">
+        {%- for block in section.blocks -%}
+        <div class="col services-item carousel__slide-wrapper--{{block.id}}" {{ block.shopify_attributes }}>
+          {%- case section.settings.layout -%}
+          {%- when 'style-1' -%}
+          <div class="media service-1 text-left {% if forloop.first %}service-first{% endif %}">
+            <span class="align-self-center mr-3 iconx11 text-theme">
+              {{block.settings.icon | default:'[[ Icon ]]'}}
+            </span>
+            <div class="media-body">
+              <h5 class="mt-0 mb-2">{{block.settings.title}}</h5>
+              <div>{{block.settings.description}}</div>
+            </div>
+          </div>
+          {%- when 'style-2' -%}
+          <div class="media service-2 text-center {% if forloop.first %}service-first{% endif %}">
+            <div class="media-body transition">
+              <div class="mb-2 iconx11 text-theme-2">
+                {{block.settings.icon | default:'[[ Icon ]]'}}
+              </div>
+              <h5 class="mt-5 mb-4 font-weight-bold text-uppercase">{{block.settings.title}}</h5>
+              <div>{{block.settings.description}}</div>
+            </div>
+          </div>
+          {%- when 'style-3' -%}
+          <div class="media service-3 text-center {% if forloop.first %}service-first{% endif %}">
+            <div class="media-body">
+              <h5 class="mt-0 mb-2 text-theme">
+                <span class="mr-1 iconx4">
+                  {{block.settings.icon | default:'[[ Icon ]]'}}
+                </span>
+                {{block.settings.title}}
+              </h5>
+              <div>{{block.settings.description}}</div>
+            </div>
+          </div>
+          {%- endcase -%}
+        </div>
+        {%- endfor -%}
+      </div>
+    </div>
+    {%- if section.blocks.size == 0 -%}
+    {%- include 'no-blocks' -%}
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Services",
+  "class": "index-section",
+  "max_blocks": 6,
+  "settings": [
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Layout",
+      "default": "style-1",
+      "options": [
+        {
+          "value": "style-1",
+          "label": "Layout 1"
+        },
+        {
+          "value": "style-2",
+          "label": "Layout 2"
+        },
+        {
+          "value": "style-3",
+          "label": "Layout 3"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Service"
+    },
+    {
+      "type": "textarea",
+      "id": "des",
+      "label": "HTML / Description"
+    },
+    {
+      "type": "checkbox",
+      "id": "fullwidth",
+      "label": "Full width",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "arrows",
+      "label": "Arrows",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "draggable",
+      "label": "Draggable",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "dots",
+      "label": "Dots",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "infinite",
+      "label": "Infinite",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "service",
+      "name": "Service",
+      "settings": [
+        {
+          "id": "title",
+          "type": "text",
+          "label": "Title",
+          "default": "Service heading"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "HTML / Description",
+          "default": "Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.",
+		  "info":"💡 [HTML Buider.](https:\/\/ap2020.myshopify.com\/pages\/html-builder)"
+        },
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Icon",
+		  "info":"💡 [SVG Icon.](https:\/\/ap2020.myshopify.com\/pages\/html-builder#html-icon)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Services",
+      "category": "Text",
+      "blocks": [
+        {
+          "type": "service"
+        },
+        {
+          "type": "service"
+        },
+        {
+          "type": "service"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

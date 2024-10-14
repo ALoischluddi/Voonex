@@ -1,0 +1,103 @@
+<!-- team-member.liquid -->
+<div class="{% if section.settings.fullwidth %}container-fluid{% else %}container{% endif %}">
+  <div class="section-block section--team-member">
+    {%- include 'section-heading' -%}
+    <div class="row">
+      {%- if section.settings.left_description != blank -%}
+      <div class="col-12 col-md-6 col-lg-4">
+        {{section.settings.left_description}}
+      </div>
+      {%- endif -%}
+      <div class="col">
+        <div class="row">
+          {%- for block in section.blocks -%}
+          <div class="col-lg-4 col-md-6" {{ block.shopify_attributes }}>
+            <div class="hv-image-brightness-n mb-3">
+              {%- if block.settings.avatar != blank -%}
+              <img class="lazyload transition" src="{%- include 'srcBlank' -%}" data-srcset="{{block.settings.avatar | img_url:'600x'}}" />
+              {%- else -%}
+              {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+              {%- endif -%}
+              <h4 class="pt-4 pb-2 m-0 font-family-2">{{block.settings.title}}</h4>
+              <p>{{block.settings.info}}</p>
+            </div>
+          </div>
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Team member",
+  "class": "index-section",
+  "max_blocks": 10,
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Product list"
+    },
+    {
+      "type": "textarea",
+      "id": "des",
+      "label": "HTML / Description"
+    },
+    {
+      "type": "checkbox",
+      "id": "fullwidth",
+      "label": "Fullwidth",
+      "default": false
+    },
+    {
+      "type": "textarea",
+      "id": "left_description",
+      "label": "Left Description"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "member",
+      "name": "Member",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "avatar",
+          "label": "Avatar"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Name",
+          "default": "Ajay Core"
+        },
+        {
+          "type": "text",
+          "id": "info",
+          "label": "Information"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Team member",
+      "category": "Text",
+      "blocks": [
+        {
+          "type": "member"
+        },
+        {
+          "type": "member"
+        },
+        {
+          "type": "member"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
