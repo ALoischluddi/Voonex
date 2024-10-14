@@ -1,0 +1,18 @@
+{%- if collection.metafields.info.coupon_code != blank -%}
+<div class="modal fade" id="jsCoupon" role="dialog" aria-hidden="true" data-delay="{{settings.coupon_time | times:1000}}">
+  <div class="modal-dialog modal-dialog--coupon modal-dialog-centered" role="document">
+    <div class="modal-content" {%- if collection.metafields.info.coupon_image != blank -%}style="background:url({{collection.metafields.info.coupon_image}}) white no-repeat center"{%- endif -%}>
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">{%- include 'icon-close' -%}</button>
+      </div>
+      <div class="modal-body">
+        <p class="coupon-promotion">{{collection.metafields.info.promotion}}</p>
+        <div class="position-relative">
+          <input id="coupon_code" type="text" value="{{collection.metafields.info.coupon_code}}">
+          <button class="btn btn-theme js-btn-coupon">Copy</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{%- endif -%}
